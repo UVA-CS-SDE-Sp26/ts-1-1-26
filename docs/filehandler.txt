@@ -14,9 +14,11 @@ we should also have a cipher interface
 UML
 Class FileHandler
 ---------------------
--
+-fileList: File[]
 ---------------------
-+readFile(fileName: String)
++readFileList()
++readFile(int index)
++readFile(File file)
 
 TEST
 
