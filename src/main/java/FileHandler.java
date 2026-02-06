@@ -1,44 +1,24 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.ArrayList;
 public class FileHandler{
     //private variable, file list
-    private File[] fileList;
+    private ArraryList<String> fileList;
     //constructor
     public FileHandler(){
         File folder = new File("data");
-        if (folder.exists() && folder.isDirectory()) {
-            fileList = folder.listFiles();
-        }
-        else{
-            fileList=new File[0];
+        File[] data = folder.listFiles();
+        String str="";
+        for(int i=0;i<data.length;i++){
+            if(data[i].isFile()){
+                str=data[i].getName()+".txt";
+                fileList.add(str);
+            }
         }
     }
-    //getter for file list
-    public File[] getFileList() {
+
+    public ArrayList<String> getFileList(){
         return fileList;
     }
 
-    //read the exact file indexed
-    public String readFile(int index) {
-        if (index >= fileList.length) {
-            return "The index you input is out of bounds.";
-        } else {
-            File currentFile = fileList[index];
-            String str = this.readContent(currentFile);
-            return str;
-        }
-    }
-    //helper method to read files
-    public String readContent(File file) throws FileNotFoundException {
-        Scanner myReader = new Scanner(file);
-        String str="";
-        while (myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-            str=str+data+"\n";
-        }
-        myReader.close();
-        return str;
-    }
 
 }
