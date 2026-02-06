@@ -1,0 +1,23 @@
+Team 1-1-26 Role b
+2/13/2026
+Yurong Fu
+
+program description:
+handle the access to the files, and when a request for a file is recieved, the program will return the file contents
+
+PSEUDOCODE
+create a new class FileHandler and methods like readFile(String fileName)
+all the data files are in data folder
+Scan the files in data folder and return the content, also return the file path and name to Team C
+we should also have a cipher interface
+
+UML
+Class FileHandler
+---------------------
+-
+---------------------
++readFile(fileName: String)
+
+TEST
+
+
