@@ -1,4 +1,9 @@
+import main.java.partC;
+
 public class tester {
+
+    partC test = new partC();
     void main(){
-    partC test = new partC();}
+        test.getFileList(1);
+    }
 }

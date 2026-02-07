@@ -1,5 +1,6 @@
+package main.java;
 
-
+import java.io.File;
 import java.util.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,10 +10,18 @@ import java.io.IOException;
 /* NOTES:
 Whats needed: Arraylists containing lists of filenames & locations.
 
+
+list of files
+fetch the content
+
+
  */
 
 
 public class partC{
+
+    FileHandler fileHandler = new FileHandler();
+    File[] fileList =fileHandler.getFileList();
 
     ArrayList<String> partBPath = new ArrayList<>();
     ArrayList<String> partBName = new ArrayList<>();
@@ -20,7 +29,8 @@ public class partC{
     boolean error = false;
     String filepath;
     int number;
-    Scanner scan = new Scanner(System.in);
+    // Scanner scan = new Scanner(System.in); this is included in part A
+    //give the lists of files as a list
     String filenamePath;
     String filename;
 
@@ -35,7 +45,7 @@ public class partC{
     }
 
 
-    partC(){
+    public partC(){
         Path folder = Paths.get("data");
         try{Files.list(folder)
                 .filter(p -> p.toString().endsWith(".txt"))
@@ -49,7 +59,7 @@ public class partC{
         catch(IOException e){
             System.out.println("cant find folder");
         }
-        System.out.println(getContent(inputChecker()));
+
 
     }
 
@@ -62,15 +72,19 @@ public class partC{
 
         partBPath = new ArrayList<>(List.of("C:\\User_1\\3140\\tester1.txt","C:\\User_1\\3140\\tester2.txt","C:\\User_1\\3140\\tester3.txt"));
         partBName = new ArrayList<>(List.of("tester1","tester2","tester3"));
-        System.out.println(getContent(inputChecker()));
+        System.out.println(getFileContentsByIndex(getFileList(1)));
     }
 
 
 
 
-    public String inputChecker() {
+    public ArrayList<String> getFileList(int index) {
+        for(File x : fileList){
+            partBName.add(x.toString());
+
+        }
         while (true) {
-            System.out.println("Select from below files, enter an int:");
+           /* System.out.println("Select from below files, enter an int:");
             for (int i = 0; i < partBName.size(); i++) {
                 System.out.println((i + 1) + "  " + partBName.get(i));
             }
@@ -96,15 +110,19 @@ public class partC{
                 System.out.println("Number not in range!");
                 continue;
             }
+*/
 
-            return partBPath.get(choice - 1);
+            return partBPath.get(index);
         }
     }
 
 
 
 
-    public String getContent(String filenamePath){
+
+
+
+    public String getFileContentsByIndex(String filenamePath){
         String contents;
 
         try{Path filepath = Paths.get(filenamePath);

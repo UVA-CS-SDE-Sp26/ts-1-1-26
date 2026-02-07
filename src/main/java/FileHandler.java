@@ -1,3 +1,5 @@
+package main.java;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -20,7 +22,7 @@ public class FileHandler{
     }
 
     //read the exact file indexed
-    public String readFile(int index) {
+    public String readFile(int index) throws FileNotFoundException {
         if (index >= fileList.length) {
             return "The index you input is out of bounds.";
         } else {
