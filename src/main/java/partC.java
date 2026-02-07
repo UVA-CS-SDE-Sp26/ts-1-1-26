@@ -7,125 +7,74 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
 
-/* NOTES:
-Whats needed: Arraylists containing lists of filenames & locations.
-
-
-list of files
-fetch the content
-
-
- */
-
 
 public class partC{
 
     FileHandler fileHandler = new FileHandler();
+
+    // calls the list of files from PartB
     File[] fileList =fileHandler.getFileList();
 
     ArrayList<String> partBPath = new ArrayList<>();
-    ArrayList<String> partBName = new ArrayList<>();
 
     boolean error = false;
-    String filepath;
-    int number;
-    // Scanner scan = new Scanner(System.in); this is included in part A
-    //give the lists of files as a list
-    String filenamePath;
-    String filename;
 
 
 
 
 
 
-    public void nameHandler(){
 
+
+public partC(){};
+
+//Get file list, uses the PartB list getter
+
+    public List<String> getFileList() {
+        ArrayList<String> partBName = new ArrayList<>();
+        int i =0;
+
+        for(File x : fileList){
+
+            partBName.add(i,  fileList[i].toString() );
+            i++;
+        }
+        for (int j = 0; j < partBName.size(); j++) {
+            String s = partBName.get(j);
+            partBName.set(j, s.length() > 5 ? s.substring(5): s);
+        }
+
+
+
+        return partBName;
 
     }
 
 
-    public partC(){
+
+
+
+
+
+    public String getFileContentsByIndex(int index){
+        ArrayList<String> partBName = new ArrayList<>();
         Path folder = Paths.get("data");
+
+//File path getter
+
         try{Files.list(folder)
                 .filter(p -> p.toString().endsWith(".txt"))
                 .forEach(p -> {partBName.add(p.getFileName().toString());
                     partBPath.add(p.toString());
-                } );
-
-        }
-
-
+                } );}
         catch(IOException e){
-            System.out.println("cant find folder");
-        }
-
-
-    }
-
-
-
-
-
-
-    partC(boolean test){
-
-        partBPath = new ArrayList<>(List.of("C:\\User_1\\3140\\tester1.txt","C:\\User_1\\3140\\tester2.txt","C:\\User_1\\3140\\tester3.txt"));
-        partBName = new ArrayList<>(List.of("tester1","tester2","tester3"));
-        System.out.println(getFileContentsByIndex(getFileList(1)));
-    }
-
-
-
-
-    public ArrayList<String> getFileList(int index) {
-        for(File x : fileList){
-            partBName.add(x.toString());
-
-        }
-        while (true) {
-           /* System.out.println("Select from below files, enter an int:");
-            for (int i = 0; i < partBName.size(); i++) {
-                System.out.println((i + 1) + "  " + partBName.get(i));
+                System.out.println("cant find folder");
             }
 
-            String line = scan.nextLine();
-            if (line == null) line = "";
-            line = line.trim();
 
-            if (line.isEmpty()) {
-                System.out.println("Input can't be empty.");
-                continue;
-            }
-
-            int choice;
-            try {
-                choice = Integer.parseInt(line);
-            } catch (NumberFormatException e) {
-                System.out.println("Enter a number!");
-                continue;
-            }
-
-            if (choice < 1 || choice > partBPath.size()) {
-                System.out.println("Number not in range!");
-                continue;
-            }
-*/
-
-            return partBPath.get(index);
-        }
-    }
-
-
-
-
-
-
-
-    public String getFileContentsByIndex(String filenamePath){
         String contents;
-
-        try{Path filepath = Paths.get(filenamePath);
+//File path reader
+        try{Path filepath = Paths.get(partBPath.get(index));
             contents = Files.readString(filepath);
         }
         catch(IOException a){
