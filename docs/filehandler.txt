@@ -15,5 +15,7 @@ Class FileHandler
 +getFileList()
 
 TEST
+case 1: checking when we delete data folder, what will be returned
+case 2: checking what will be returned in the ArrayList<String> at each index
 
 
