@@ -6,20 +6,26 @@ program description:
 handle the access to the files, and when a request for a file is recieved, the program will return the file contents
 
 PSEUDOCODE
-create a new class FileHandler and methods like readFile(String fileName)
-all the data files are in data folder
-Scan the files in data folder and return the content, also return the file path and name to Team C
-we should also have a cipher interface
+Get all the files in the data folder, create a String ArrayList and index them properly
+Also deal with the errors related to the data folder
 
 UML
 Class FileHandler
 ---------------------
--fileList: File[]
----------------------
-+readFileList()
-+readFile(int index)
-+readFile(File file)
+-File:folder
+-ArrayList<String>: fileList
+-ArrayList<String> numbering
+----------------------
++getFileList()
++loadFileList()
++getNumbering()
++generateNumbering()
 
 TEST
+case 1: checking when we delete data folder, what will be returned----(folder not found)
+case 2: checking what will be returned in the ArrayList<String> at each index to test if user can get the file list successfully
+case 3: testing if the numbering is correct, checking the last one is length
+case 4: testing the format of the numbering is correct
+case 5: testing when data folder is empty
 
 
