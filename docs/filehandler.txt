@@ -12,10 +12,20 @@ Also deal with the errors related to the data folder
 UML
 Class FileHandler
 ---------------------
+-File:folder
+-ArrayList<String>: fileList
+-ArrayList<String> numbering
+----------------------
 +getFileList()
++loadFileList()
++getNumbering()
++generateNumbering()
 
 TEST
-case 1: checking when we delete data folder, what will be returned
-case 2: checking what will be returned in the ArrayList<String> at each index
+case 1: checking when we delete data folder, what will be returned----(folder not found)
+case 2: checking what will be returned in the ArrayList<String> at each index to test if user can get the file list successfully
+case 3: testing if the numbering is correct, checking the last one is length
+case 4: testing the format of the numbering is correct
+case 5: testing when data folder is empty
 
 
