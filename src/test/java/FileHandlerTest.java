@@ -38,5 +38,15 @@ public class FileHandlerTest {
 //    public void testFolderNotExists(){
 //
 //    }
+    @Test
+    public void testReturnFileContent(){
+        FileHandler fh=new FileHandler();
+        String output=fh.readContent(1);
+        assertEquals("file A contents as follows\n" +
+                "gadjsgvasbdfjkansdjnksdgkskdng\n" +
+                "dsnakdfsdkfa\n" +
+                "asdfadsafxzvq\n" +
+                "adfadfasdgfa",output,"the file content does not match");
+    }
 
 }
