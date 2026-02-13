@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ProgramControlTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-13T20:38:17.853Z" hostname="Haileys-MacBook-Pro.local" time="0.01">
+  <properties/>
+  <testcase name="testProgramControl_EmptyArgs_ShowsMenu()" classname="ProgramControlTest" time="0.004"/>
+  <testcase name="testProgramControl_ReadIndex_ReturnsContents()" classname="ProgramControlTest" time="0.001"/>
+  <testcase name="testGetFileList_Direct()" classname="ProgramControlTest" time="0.002"/>
+  <testcase name="testProgramControl_NonNumeric()" classname="ProgramControlTest" time="0.001"/>
+  <testcase name="testProgramControl_FolderMissing()" classname="ProgramControlTest" time="0.001"/>
+  <testcase name="testGetFileContentsByIndex_Direct()" classname="ProgramControlTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

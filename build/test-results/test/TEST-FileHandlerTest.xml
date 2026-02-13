@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="FileHandlerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-02-13T20:38:17.570Z" hostname="Haileys-MacBook-Pro.local" time="0.281">
+  <properties/>
+  <testcase name="testReturnContent_Fail()" classname="FileHandlerTest" time="0.007"/>
+  <testcase name="testGetFileList_NotExist()" classname="FileHandlerTest" time="0.205"/>
+  <testcase name="testReturnContent_Success(Path)" classname="FileHandlerTest" time="0.01"/>
+  <testcase name="testGetFileList_NoFile()" classname="FileHandlerTest" time="0.001"/>
+  <testcase name="testNumberingOne_Success(Path)" classname="FileHandlerTest" time="0.003"/>
+  <testcase name="testGetFileList_Success()" classname="FileHandlerTest" time="0.0"/>
+  <testcase name="testNumberingTwo_Success()" classname="FileHandlerTest" time="0.01"/>
+  <testcase name="testNumberingThree_Success()" classname="FileHandlerTest" time="0.041"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -4,14 +4,14 @@ Responsible for creating the command line interface
 
 public void getOutput(String[] args)
 
-CASE 1 - User types java topsecret __ (no arg)
+CASE 1 - User types java TopSecret __ (no arg)
 if args.length == 0 #meaning there is NO arguments
 GET LIST OF ALL FILES #get list of all files, call from PartC
 for (file : files)
     system.out.println(file)
 
 
-CASE 2 - User types java topsecret 1 or java topsecret 01 or java topsecret 01 somekey
+CASE 2 - User types java TopSecret 1 or java TopSecret 01 or java TopSecret 01 somekey
 if (args.length == 1 || args.length == 2) #1 number or 1 number + something
 String index = args[0] # get the index of the number (so like 01 or 1)
 
@@ -23,7 +23,7 @@ try
         return "Error: " + e.getMessage() + "\n";
             }
 
-CASE 3: too many args, ex. java topsecret 1 2 3
+CASE 3: too many args, ex. java TopSecret 1 2 3
 return "Error: too many arguments"
 }
 
