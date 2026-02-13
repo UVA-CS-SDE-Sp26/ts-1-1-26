@@ -1,6 +1,6 @@
 //this is a mock test, delete this later.
-//fast compile: javac src\main\java\*.java src\test\java\MockTestC.java
-//fast run: java -cp "src\main\java" MockTestC a
+//fast compile in terminal: javac src\main\java\*.java src\test\java\MockTestC.java
+//fast run in terminal: java -cp "src\main\java" MockTestC a
 public class MockTestC {
 
     partC test = new partC();
