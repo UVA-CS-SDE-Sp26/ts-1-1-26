@@ -1,0 +1,3 @@
+this is file c line 1
+this is file c line 2
+this is file c line 3
