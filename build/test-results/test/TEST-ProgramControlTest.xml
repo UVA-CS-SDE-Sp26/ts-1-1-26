@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ProgramControlTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-13T19:01:43.673Z" hostname="Haileys-MacBook-Pro.local" time="0.01">
+<testsuite name="ProgramControlTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-13T19:17:42.336Z" hostname="Haileys-MacBook-Pro.local" time="0.01">
   <properties/>
   <testcase name="testProgramControl_EmptyArgs_ShowsMenu()" classname="ProgramControlTest" time="0.003"/>
   <testcase name="testProgramControl_ReadIndex_ReturnsContents()" classname="ProgramControlTest" time="0.002"/>
