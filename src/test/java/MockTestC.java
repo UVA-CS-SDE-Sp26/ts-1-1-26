@@ -13,7 +13,7 @@ public class MockTestC {
 
         }
         else { arg1= args[0];}
-
+//example how you use programcontrol
        partC test = new partC();
         System.out.println(test.programcontrol(arg1));
 
