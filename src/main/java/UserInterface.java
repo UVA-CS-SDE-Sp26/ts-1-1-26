@@ -1,7 +1,3 @@
-package main.java;
-
-import main.java.partC;
-
 import java.util.List;
 
 public class UserInterface {
@@ -28,7 +24,7 @@ public class UserInterface {
 
             try {
 
-                String contents = control.getFileContentsByIndex(choice-1);
+                String contents = control.getFileContentsByIndex(1);
                 System.out.print(contents);
                 if (!contents.endsWith("\n")) System.out.println();
             } catch (IllegalArgumentException e) {

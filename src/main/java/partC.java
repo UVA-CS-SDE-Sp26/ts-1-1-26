@@ -1,7 +1,5 @@
-package main.java;
-
-import java.io.File;
 import java.util.*;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,11 +11,11 @@ public class partC{
     FileHandler fileHandler = new FileHandler();
 
     // calls the list of files from PartB
-    File[] fileList =fileHandler.getFileList();
+    public ArrayList<String> fileList =fileHandler.getFileList();
 
-    ArrayList<String> partBPath = new ArrayList<>();
+    public ArrayList<String> partBPath = new ArrayList<>();
 
-    boolean error = false;
+    public boolean error = false;
 
 
 
@@ -30,13 +28,16 @@ public partC(){};
 
 //Get file list, uses the PartB list getter
 
-    public List<String> getFileList() {
-        ArrayList<String> partBName = new ArrayList<>();
+    public ArrayList<String> getFileList() {
+
+        return fileHandler.getFileList();
+
+       /* ArrayList<String> partBName = new ArrayList<>();
         int i =0;
 
-        for(File x : fileList){
+        for(String x : fileList){
 
-            partBName.add(i,  fileList[i].toString() );
+            partBName.add(i, fileList.get(i));
             i++;
         }
         for (int j = 0; j < partBName.size(); j++) {
@@ -47,6 +48,7 @@ public partC(){};
 
 
         return partBName;
+        */
 
     }
 
