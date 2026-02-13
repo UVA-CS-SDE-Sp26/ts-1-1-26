@@ -50,7 +50,7 @@ public partC(){};
         }
 
         try {number = Integer.parseInt(args);}
-        catch (NumberFormatException e){ System.out.println("format not supported");}
+        catch (NumberFormatException e){ return "format not supported";}
         String contents;
 
         contents = getFileContentsByIndex(number);
