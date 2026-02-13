@@ -97,17 +97,19 @@ public class FileHandlerTest {
         File mockFolder=mock(File.class);
         File[] mockFiles=new File[100];
         //stubbing
+        when(mockFolder.exists()).thenReturn(true);
+        when(mockFolder.isDirectory()).thenReturn(true);
         for(int i=0;i<100;i++){
             File f=mock(File.class);
             when(f.isFile()).thenReturn(true);
             when(f.exists()).thenReturn(true);
             when(f.isDirectory()).thenReturn(true);
-            when(f.getName()).thenReturn("mockFile"+i+".txt");
+            when(f.getName()).thenReturn("mockFile"+(i+1)+".txt");
             mockFiles[i]=f;
         }
 //
 //        when(mockFiles==null).thenReturn(false);
-        when(mockFiles.length==0).thenReturn(false);
+        //when(mockFiles.length()==0).thenReturn(false);
         when(mockFolder.listFiles()).thenReturn(mockFiles);
         //using the Mockito
         FileHandler fh=new FileHandler(mockFolder);
