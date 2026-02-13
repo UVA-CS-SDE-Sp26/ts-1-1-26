@@ -20,12 +20,15 @@ Class FileHandler
 +loadFileList()
 +getNumbering()
 +generateNumbering()
-
++readContent()
 TEST
-case 1: checking when we delete data folder, what will be returned----(folder not found)
-case 2: checking what will be returned in the ArrayList<String> at each index to test if user can get the file list successfully
-case 3: testing if the numbering is correct, checking the last one is length
-case 4: testing the format of the numbering is correct
-case 5: testing when data folder is empty
+case 1: loadFileList() and getFileList() work successfully
+case 2: when the "data" folder we don't have access to read or does not exist, loadFileList() will return a message
+case 3: when the data folder is empty, loadFileList() will return a message
+case 4: generateNumbering() and getNumbering() work successfully when the total number is one digit
+case 5: generateNumbering() and getNumbering() work successfully when the total number is two digit
+case 6: generateNumbering() and getNumbering() work succesffuly when the total number is three digit
+case 7: readContent() works successfully
+case 8: the index input in readContent() is out of bounds.
 
 

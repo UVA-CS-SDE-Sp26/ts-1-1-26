@@ -1,5 +1,1 @@
-file A contents as follows
-gadjsgvasbdfjkansdjnksdgkskdng
-dsnakdfsdkfa
-asdfadsafxzvq
-adfadfasdgfa
+this is file a line 1
