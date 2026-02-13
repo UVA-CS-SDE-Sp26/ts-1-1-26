@@ -1,2 +1,0 @@
-this is file b line 1
-this is file b line 2

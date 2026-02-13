@@ -10,6 +10,7 @@ public class partC{
 
     FileHandler fileHandler = new FileHandler();
 
+
     // calls the list of files from PartB
     public ArrayList<String> fileList =fileHandler.getFileList();
 
@@ -26,7 +27,43 @@ public class partC{
 
 public partC(){};
 
-//Get file list, uses the PartB list getter
+//programcontrol reads args as String and catches exceptions for illegal input
+    public String programcontrol(String  args){
+        try{fileHandler.loadFileList();}
+        catch (IOException e){
+            return "unable to load filelist";
+
+        }
+        int number = '\0';
+
+
+        if (args.isEmpty()){
+            String list="";
+            int i=0;
+            for (String x : getFileList()){
+                i++;
+                list += i +"  "+ x +"\n";
+
+
+            }
+            return list;
+        }
+
+        try {number = Integer.parseInt(args);}
+        catch (NumberFormatException e){ System.out.println("format not supported");}
+        String contents;
+
+        contents = getFileContentsByIndex(number);
+
+return contents;
+
+
+
+
+
+        }
+
+
 
     public ArrayList<String> getFileList() {
 
@@ -59,7 +96,12 @@ public partC(){};
 
 
     public String getFileContentsByIndex(int index){
-        ArrayList<String> partBName = new ArrayList<>();
+        String contents;
+        contents = fileHandler.readContent(index);
+        return contents;
+
+
+       /* ArrayList<String> partBName = new ArrayList<>();
         Path folder = Paths.get("data");
 
 //File path getter
@@ -83,8 +125,8 @@ public partC(){};
             System.out.println("error reading text or fetching files. check file format or location.");
             error = true;
             return "";
-        }
-        return contents;
+        } */
+
 
     }
 
