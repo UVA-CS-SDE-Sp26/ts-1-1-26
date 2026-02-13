@@ -1,91 +1,86 @@
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProgramControlTest {
 
-    // Simple assertions (no JUnit)
-    private static void assertTrue(boolean cond, String msg) {
-        if (!cond) throw new AssertionError("FAIL: " + msg);
+    @TempDir
+    Path tempDir;
+
+    private ProgramControl makePartCWithTempDataFolder() throws IOException {
+        // create temp "data" folder
+        Path dataDir = tempDir.resolve("data");
+        Files.createDirectories(dataDir);
+
+        // create predictable files
+        Files.writeString(dataDir.resolve("a.txt"), "AAA\nline2");
+        Files.writeString(dataDir.resolve("b.txt"), "BBB");
+
+        // build partC and inject FileHandler that points at temp data folder
+        ProgramControl c = new ProgramControl();
+        c.fileHandler = new FileHandler(dataDir.toFile());   // relies on fileHandler NOT being private
+        return c;
     }
 
-    private static void assertEquals(String expected, String actual, String msg) {
-        if (expected == null && actual == null) return;
-        if (expected != null && expected.equals(actual)) return;
-        throw new AssertionError("FAIL: " + msg + "\nExpected:\n" + expected + "\nActual:\n" + actual);
+    @Test
+    public void testProgramControl_EmptyArgs_ShowsMenu() throws IOException {
+        ProgramControl c = makePartCWithTempDataFolder();
+        String out = c.programcontrol("");
+
+        assertNotNull(out);
+        assertTrue(out.contains("1  a.txt"));
+        assertTrue(out.contains("2  b.txt"));
     }
 
-    private static void assertContains(String haystack, String needle, String msg) {
-        if (haystack == null || !haystack.contains(needle)) {
-            throw new AssertionError("FAIL: " + msg + "\nMissing: " + needle + "\nActual:\n" + haystack);
-        }
+    @Test
+    public void testProgramControl_ReadIndex_ReturnsContents() throws IOException {
+        ProgramControl c = makePartCWithTempDataFolder();
+        String out = c.programcontrol("1");
+
+        assertEquals("AAA\nline2", out);
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println("=== TesterPartC starting ===");
-        System.out.println("Working dir: " + System.getProperty("user.dir"));
+    @Test
+    public void testProgramControl_NonNumeric() throws IOException {
+        ProgramControl c = makePartCWithTempDataFolder();
+        String out = c.programcontrol("abc");
 
-
-        Path dataDir = Paths.get("data");
-        recreateDir(dataDir);
-
-        // Ensure predictable sort order in FileHandler (a.txt then b.txt)
-        writeFile(dataDir.resolve("a.txt"), "AAA\nline2");
-        writeFile(dataDir.resolve("b.txt"), "BBB");
-
-
-        partC c1 = new partC();
-        String listOutput = c1.programcontrol("");
-        System.out.println("[empty-args output]\n" + listOutput);
-
-        // Should include numbered entries for a.txt and b.txt
-        assertContains(listOutput, "1  a.txt", "Menu should include first file a.txt with number 1");
-        assertContains(listOutput, "2  b.txt", "Menu should include second file b.txt with number 2");
-
-
-        partC c2 = new partC();
-        String content1 = c2.programcontrol("1");
-        System.out.println("[read #1 output]\n" + content1);
-
-
-        assertEquals("AAA\nline2", content1, "Reading file #1 should return full contents of a.txt");
-
-
-        partC c3 = new partC();
-
-        // Reminder TesterPartC must be in the same package (no package line) to access it.
-        c3.fileHandler = new FileHandler(new File("THIS_FOLDER_SHOULD_NOT_EXIST_12345"));
-        String ioFail = c3.programcontrol("");
-        System.out.println("[io-fail output]\n" + ioFail);
-        assertEquals("unable to load filelist", ioFail, "Should return unable to load filelist when folder missing");
-
-
-        partC c4 = new partC();
-        String nonNumericResult = c4.programcontrol("abc");
-        System.out.println("[non-numeric output]\n" + nonNumericResult);
-
-
-        assertTrue(nonNumericResult != null, "Non-numeric input should not return null");
-
-        System.out.println("=== ALL TESTS PASSED ===");
+        assertEquals("format not supported", out);
     }
 
-    private static void recreateDir(Path dir) throws IOException {
-        if (Files.exists(dir)) {
-            // delete contents
-            try (var walk = Files.walk(dir)) {
-                walk.sorted((a, b) -> b.compareTo(a))
-                        .forEach(p -> {
-                            try { Files.deleteIfExists(p); }
-                            catch (IOException e) { throw new RuntimeException(e); }
-                        });
-            }
-        }
-        Files.createDirectories(dir);
+    @Test
+    public void testProgramControl_FolderMissing() {
+        ProgramControl c = new ProgramControl();
+        c.fileHandler = new FileHandler(new File("THIS_FOLDER_SHOULD_NOT_EXIST_12345"));
+
+        String out = c.programcontrol("");
+        assertEquals("unable to load filelist", out);
     }
 
-    private static void writeFile(Path file, String contents) throws IOException {
-        Files.writeString(file, contents, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    @Test
+    public void testGetFileList_Direct() throws IOException {
+        ProgramControl c = makePartCWithTempDataFolder();
+        c.fileHandler.loadFileList(); // because getFileList() just returns the list
+
+        assertEquals(2, c.getFileList().size());
+        assertEquals("a.txt", c.getFileList().get(0));
+        assertEquals("b.txt", c.getFileList().get(1));
+    }
+
+    @Test
+    public void testGetFileContentsByIndex_Direct() throws IOException {
+        ProgramControl c = makePartCWithTempDataFolder();
+        c.fileHandler.loadFileList();
+
+        assertEquals("BBB", c.getFileContentsByIndex(2));
     }
 }
+
+
+

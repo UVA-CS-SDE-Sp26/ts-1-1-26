@@ -4,7 +4,7 @@
 
 Overview
 
-partC is the controller module responsible for connecting command-line input to the file handling system. It acts as the bridge between:
+ProgramControl is the controller module responsible for connecting command-line input to the file handling system. It acts as the bridge between:
 User input (command line arguments)
 File listing service (Part B / FileHandler)
 File content retrieval
@@ -33,7 +33,7 @@ partBPath	    ArrayList<String>	(Unused placeholder for paths)
 error	         boolean	         Error flag
 
 constructor
-public partC()
+public ProgramControl()
 Initializes controller instance.
 No parameters required.
 

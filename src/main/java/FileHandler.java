@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.io.IOException;
 
+
 public class FileHandler{
+
     private File folder;
     private ArrayList<String> fileList;
     private ArrayList<String> numbering;
@@ -72,3 +74,4 @@ public class FileHandler{
         return str;
     }
 }
+

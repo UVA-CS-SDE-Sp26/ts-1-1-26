@@ -1,3 +1,4 @@
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -6,6 +7,10 @@ import java.io.File;
 import java.util.ArrayList;
 import static org.mockito.Mockito.*;
 import java.io.IOException;
+import org.junit.jupiter.api.io.TempDir;
+import java.io.FileWriter;
+import java.nio.file.Path;
+
 
 public class FileHandlerTest {
    // @Test 5
@@ -19,7 +24,7 @@ public class FileHandlerTest {
 //    }
     //test case 1:
     @Test
-    public void testGetFlileList_Success() throws IOException{
+    public void testGetFileList_Success() throws IOException{
         FileHandler fh=new FileHandler();
         fh.loadFileList();
         ArrayList<String> fileList=fh.getFileList();
@@ -57,13 +62,24 @@ public class FileHandlerTest {
          }
     //test case 4
     @Test
-    public void testNumberingOne_Success() throws IOException{
-        FileHandler fh=new FileHandler();
-        fh.loadFileList();
+    public void testNumberingOne_Success(@TempDir Path tempDir) throws IOException {
+        File folder = tempDir.toFile();
+
+        // make 4 files
+        try (FileWriter w = new FileWriter(new File(folder, "filea.txt"))) { w.write("A\n"); }
+        try (FileWriter w = new FileWriter(new File(folder, "fileb.txt"))) { w.write("B\n"); }
+        try (FileWriter w = new FileWriter(new File(folder, "filec.txt"))) { w.write("C\n"); }
+        try (FileWriter w = new FileWriter(new File(folder, "filed.txt"))) { w.write("D\n"); }
+
+        FileHandler fh = new FileHandler(folder);
         fh.generateNumbering();
-        ArrayList<String> nums=fh.getNumbering();
-        assertEquals("04",nums.get(nums.size()-1),"the numbering is not right when there is one single digit.");
+        ArrayList<String> nums = fh.getNumbering();
+
+        // don't hardcode "04" (in case extra files ever appear); verify formatting is correct
+        assertEquals(String.format("%02d", nums.size()), nums.get(nums.size() - 1));
+        assertEquals("01", nums.get(0));
     }
+
     //test case 5
     @Test
     public void testNumberingTwo_Success() throws IOException{
@@ -121,17 +137,30 @@ public class FileHandlerTest {
 
     //test case 7
     @Test
-    public void testReturnContent_Success() throws IOException{
-        FileHandler fh=new FileHandler();
+    public void testReturnContent_Success(@TempDir Path tempDir) throws IOException {
+        File folder = tempDir.toFile();
+
+        try (FileWriter w = new FileWriter(new File(folder, "filea.txt"))) { w.write("this is file a line 1\n"); }
+        try (FileWriter w = new FileWriter(new File(folder, "fileb.txt"))) { w.write("this is file b line 1\nthis is file b line 2\n"); }
+        try (FileWriter w = new FileWriter(new File(folder, "filec.txt"))) { w.write("this is file c line 1\nthis is file c line 2\nthis is file c line 3\n"); }
+        try (FileWriter w = new FileWriter(new File(folder, "filed.txt"))) { w.write(""); }
+
+        FileHandler fh = new FileHandler(folder);
         fh.loadFileList();
-        assertEquals("this is file a line 1",fh.readContent(1),"the file content does not match");
-        assertEquals("this is file b line 1\n" +
-                "this is file b line 2", fh.readContent(2),"the file content does not match");
-        assertEquals("this is file c line 1\n" +
-                "this is file c line 2\n" +
-                "this is file c line 3",fh.readContent(3),"the file content does not match");
-        assertEquals("",fh.readContent(4),"the file content does not match");
+
+        // Find indexes by filename (protects against any unexpected extra files)
+        ArrayList<String> names = fh.getFileList();
+        int idxA = names.indexOf("filea.txt") + 1;
+        int idxB = names.indexOf("fileb.txt") + 1;
+        int idxC = names.indexOf("filec.txt") + 1;
+        int idxD = names.indexOf("filed.txt") + 1;
+
+        assertEquals("this is file a line 1", fh.readContent(idxA));
+        assertEquals("this is file b line 1\nthis is file b line 2", fh.readContent(idxB));
+        assertEquals("this is file c line 1\nthis is file c line 2\nthis is file c line 3", fh.readContent(idxC));
+        assertEquals("", fh.readContent(idxD));
     }
+
     //test 8
     @Test
     public void testReturnContent_Fail() throws IOException{
