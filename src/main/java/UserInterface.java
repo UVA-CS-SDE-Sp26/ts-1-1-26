@@ -11,21 +11,25 @@ public class UserInterface {
         // Case 1: No arguments (print out all file names in the list)
         if (args.length == 0) {
             List<String> files = control.getFileList();
+            int j =1;
             for (String file : files) {
-                System.out.println(file);
+                j++;
+                System.out.println(j+ "  " + file);
             }
         }
 
         // Case 2: 1 or 2 arguments (like 01 or 01 somekey), print out contents of the file
         if (args.length == 1 || args.length == 2) {
             String choice = args[0];
+
             try {
-                String contents = control.getFileContentsByIndex(choice-1);
+
+                String contents = control.getFileContentsByIndex(1);
                 System.out.print(contents);
                 if (!contents.endsWith("\n")) System.out.println();
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
-                printUsage();
+                //printUsage();
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }

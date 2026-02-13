@@ -1,0 +1,75 @@
+
+
+
+
+Overview
+
+partC is the controller module responsible for connecting command-line input to the file handling system. It acts as the bridge between:
+User input (command line arguments)
+File listing service (Part B / FileHandler)
+File content retrieval
+
+The class interprets user input and determines whether to:
+Display available files
+Retrieve and display a file’s contents
+Return an error message if input is invalid or files cannot be loaded
+
+Responsibilities
+The responsibilities of Part C are:
+Request file list from FileHandler
+Interpret command-line argument
+Validate numeric input
+Request file contents by index
+Return formatted output text
+
+
+
+
+
+Field	        Type	            Purpose
+fileHandler	    FileHandler	        Handles file listing + reading
+fileList	    ArrayList<String>	Stores filenames
+partBPath	    ArrayList<String>	(Unused placeholder for paths)
+error	         boolean	         Error flag
+
+constructor
+public partC()
+Initializes controller instance.
+No parameters required.
+
+
+Method: programcontrol(String args)
+Main controller logic.
+
+Behavior
+
+Input	            Result
+Empty string	    Returns numbered list of files
+Number	            Returns contents of selected file
+Invalid number	    Prints format warning
+Missing folder	    Returns "unable to load filelist"
+
+Logic flow:
+load file list
+    ↓
+if args empty → print menu
+    ↓
+else parse number
+    ↓
+if parse fails → print warning
+    ↓
+return file contents
+
+Dependencies:
+FileHandler
+Required methods:
+
+loadFileList()
+
+getFileList()
+
+readContent(int index)
+
+
+
+
